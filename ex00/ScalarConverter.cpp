@@ -56,11 +56,10 @@ bool    ScalarConverter::isDouble(const std::string& arg)
         if (arg == pseoudoDoubles[j])
             return (true);
     }
-
     size_t i = 0;
     if (arg[i] == '-' || arg[i] == '+')
         i++;
-    if (*(arg.begin()) == '.')
+    if (arg[0] == '.')
         return (false);
     for( ; i < arg.length(); i++)
     {
@@ -69,7 +68,6 @@ bool    ScalarConverter::isDouble(const std::string& arg)
     }
     if (arg.find('.') != arg.rfind('.'))
         return (false);
-    
     return (true);
 }
 
@@ -85,9 +83,8 @@ bool    ScalarConverter::isFloat(const std::string& arg)
     size_t i = 0;
     if (arg[i] == '-' || arg[i] == '+')
         i++;
-    if (*(arg.begin()) == '.')
+    if (arg[0] == '.')
         return (false);
-
     for( ; i < arg.length(); i++)
     {
         if (!std::isdigit(arg[i]) && arg[i] != '.' && arg[i] != 'f')
@@ -95,7 +92,7 @@ bool    ScalarConverter::isFloat(const std::string& arg)
     }
     if (arg.find('.') != arg.rfind('.'))
         return (false);
-    if (arg.find('f') != arg.rfind('f') && *(arg.end() - 1) == 'f')
+    if (arg.find('f') != arg.rfind('f') && arg[arg.length() - 1] == 'f')
         return (false);
     return (true);
 }
