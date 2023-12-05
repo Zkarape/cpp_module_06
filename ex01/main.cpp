@@ -1,6 +1,6 @@
 #include "Serializer.hpp"
 
-struct node
+struct data
 {
     int a;
 };
@@ -8,12 +8,12 @@ struct node
 
 int main()
 {
-    node *a = new node;
+    data *a = new data;
     a->a = 4;
     uintptr_t t;
 
-    t = Serializer::serialize<node>(a);
-    a = Serializer::deserialize<node>(t);
+    t = Serializer::serialize<data>(a);
+    a = Serializer::deserialize<data>(t);
     std::cout << "t == " << t << std::endl;
     std::cout << "a == " << a << std::endl;
     std::cout << "a->a == " << a->a << std::endl;

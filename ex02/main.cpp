@@ -29,14 +29,31 @@ void identify(Base *p)
 
 void identify(Base &p)
 {
-    if (dynamic_cast<A *>(&p))
-        std::cout << "Actual type is A\n";
-    else if (dynamic_cast<B *>(&p))
-        std::cout << "Actual type is B\n";
-    else if (dynamic_cast<C *>(&p))
-        std::cout << "Actual type is C\n";
-    else
-        std::cout << "Actual type is unknown\n";
+    try
+    {
+        dynamic_cast<A &>(p);
+        std::cout << "p is of type A" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        try
+        {
+            dynamic_cast<B &>(p);
+            std::cout << "p is of type B" << std::endl;
+        }
+        catch (const std::exception &e)
+        {
+            try
+            {
+                dynamic_cast<C &>(p);
+                std::cout << "p is of type C" << std::endl;
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+        }
+    }
 }
 
 int main()
@@ -46,6 +63,7 @@ int main()
     B B;
     C C;
 
-    b = &B;
+    b = generate();
     identify(b);
+    identify(C);
 }
